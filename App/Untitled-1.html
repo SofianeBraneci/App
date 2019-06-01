@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="face-api.js"></script>
+</head>
+<body>
+    <img id="myImg" src="IMG_20170323_163303752.jpg" />
+    <canvas id="myCanvas" />
+</body>
+<script>
+const input = document.getElementById('myImage');
+/* Display detected face bounding boxes */
+const displaySize = { width: input.width, height: input.height }
+// resize the overlay canvas to the input dimensions
+const canvas = document.getElementById('myCanvas')
+faceapi.matchDimensions(canvas, displaySize)
+const detections = await faceapi.detectAllFaces(input)
+// resize the detected boxes in case your displayed image has a different size than the original
+const resizedDetections = faceapi.resizeResults(detections, displaySize)
+
+// draw detections into the canvas
+faceapi.draw.drawDetections(canvas, resizedDetections)
+
+</script>
+</html>
